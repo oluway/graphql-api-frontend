@@ -14,8 +14,10 @@
     ],
     "lib": [
       "es2016",
-      "dom"
+      "dom",
+      "esnext.asynciterable"
     ],
-    "module": "es2015"
+    "module": "es2015",
+    "allowSyntheticDefaultImports": true
   }
 }
