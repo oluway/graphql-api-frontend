@@ -1,17 +1,31 @@
-import  { gql }  from 'apollo-angular';
+import { gql } from "apollo-angular";
 
-const ALL_PERSONS = gql `{
-  query {
-     peopleList {
-        results {
-            name,
-            height, 
-            mass,
-            gender, 
-            homeworld
-        }
-     }
+const allPersons = gql`
+  {
+    peopleList {
+      results {
+        name
+        height
+        mass
+        gender
+        homeworld
+      }
+    }
   }
-}`;
+`;
 
-export { ALL_PERSONS };
+export const GET_QUERY_BY_NAME = gql`
+  query getPersonByName($name: String!) {
+    getPersonByName(name: $name) {
+      results {
+        name
+        height
+        mass
+        gender
+        homeworld
+      }
+    }
+  }
+`;
+
+export { allPersons };

@@ -1,26 +1,25 @@
-import { NgModule } from '@angular/core';
-import { CommonModule, } from '@angular/common';
-import { BrowserModule  } from '@angular/platform-browser';
-import { Routes, RouterModule } from '@angular/router';
+import { NgModule } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { BrowserModule } from "@angular/platform-browser";
+import { Routes, RouterModule } from "@angular/router";
 
-import { ComponentsComponent } from './components/components.component';
-import { NucleoiconsComponent } from './components/nucleoicons/nucleoicons.component';
-
-const routes: Routes =[
-    { path: '', redirectTo: 'home', pathMatch: 'full' },
-    { path: 'home',             component: ComponentsComponent },
-    { path: 'nucleoicons',      component: NucleoiconsComponent }
+const routes: Routes = [
+  {
+    path: "",
+    children: [
+      {
+        path: "",
+        loadChildren: () =>
+          import("./components/people/people.module").then(
+            (mod) => mod.PeopleModule
+          ),
+      },
+    ],
+  },
 ];
 
 @NgModule({
-  imports: [
-    CommonModule,
-    BrowserModule,
-    RouterModule.forRoot(routes,{
-      useHash: true
-    })
-  ],
-  exports: [
-  ],
+  imports: [CommonModule, BrowserModule, RouterModule.forRoot(routes)],
+  exports: [],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
