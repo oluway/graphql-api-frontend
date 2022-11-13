@@ -107,9 +107,7 @@ export class PeopleComponent implements OnInit {
     this.currentPage = Number(page_no);
     this.getPeople(this.currentPage);
   }
-  pageChange($event: any) {
-    console.log("Page change .... ", event.target);
-  }
+
   getURLParameter(url, name) {
     return (RegExp(name + "=" + "(.+?)(&|$)").exec(url) || [, null])[1];
   }
