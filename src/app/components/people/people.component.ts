@@ -1,11 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder } from "@angular/forms";
 import { Apollo, gql } from "apollo-angular";
-import {
-  PeopleServiceService,
-  Person,
-} from "app/services/people-service.service";
-import { GET_QUERY_BY_NAME } from "app/graphql/graphql.queries";
+import { GET_QUERY_BY_NAME, ALL_PEOPLE } from "app/graphql/graphql.queries";
+import { Person } from "../../model/person";
 
 @Component({
   selector: "app-people",
@@ -23,21 +20,21 @@ export class PeopleComponent implements OnInit {
     name: [""],
   });
 
-  constructor(
-    private peopleService: PeopleServiceService,
-    private _fb: FormBuilder,
-    private apollo: Apollo
-  ) {}
+  constructor(private _fb: FormBuilder, private apollo: Apollo) {}
 
   ngOnInit(): void {
     this.getPeople();
   }
   getPeople() {
-    this.peopleService.getPeople().then((result: any) => {
-      this.people = result?.data?.peopleList?.results;
-      this.loading = result?.loading;
-      this.error = false;
-    });
+    this.apollo
+      .watchQuery({
+        query: ALL_PEOPLE,
+      })
+      .valueChanges.subscribe((result: any) => {
+        this.people = result?.data?.peopleList?.results;
+        this.loading = result?.loading;
+        this.error = false;
+      });
   }
   queryByName() {
     this.apollo

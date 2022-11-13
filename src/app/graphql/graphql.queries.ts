@@ -1,6 +1,6 @@
 import { gql } from "apollo-angular";
 
-const allPersons = gql`
+export const ALL_PEOPLE = gql`
   {
     peopleList {
       results {
@@ -28,4 +28,14 @@ export const GET_QUERY_BY_NAME = gql`
   }
 `;
 
-export { allPersons };
+export const GET_PEOPLE_BY_ID = gql`
+  query getPersonByID($id: ID!) {
+    getPersonByID(id: $id) {
+      name
+      height
+      mass
+      gender
+      homeworld
+    }
+  }
+`;

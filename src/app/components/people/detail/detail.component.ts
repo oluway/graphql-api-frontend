@@ -2,11 +2,8 @@ import { Component, OnInit } from "@angular/core";
 import { Location } from "@angular/common";
 import { ActivatedRoute } from "@angular/router";
 import { Apollo, gql } from "apollo-angular";
-import {
-  PeopleServiceService,
-  PersonDetail,
-} from "app/services/people-service.service";
-// import { getPersonByID } from "app/graphql/graphql.queries";
+import { GET_PEOPLE_BY_ID } from "app/graphql/graphql.queries";
+import { PersonDetail } from "app/model/personDetails";
 
 @Component({
   selector: "app-detail",
@@ -17,30 +14,19 @@ export class DetailComponent implements OnInit {
   id: any;
   data: PersonDetail;
   loading = true;
+  error: boolean;
   constructor(
     public location: Location,
     private route: ActivatedRoute,
-    private apollo: Apollo,
-    private peopleService: PeopleServiceService
+    private apollo: Apollo
   ) {}
 
   ngOnInit(): void {
-    // let wow = this.peopleService.getPeople(1);
     this.route.params.subscribe((params) => {
       this.id = params["id"];
       this.apollo
         .watchQuery({
-          query: gql`
-            query getPersonByID($id: ID!) {
-              getPersonByID(id: $id) {
-                name
-                height
-                mass
-                gender
-                homeworld
-              }
-            }
-          `,
+          query: GET_PEOPLE_BY_ID,
           variables: {
             id: this.id,
           },
@@ -48,7 +34,7 @@ export class DetailComponent implements OnInit {
         .valueChanges.subscribe((result: any) => {
           this.data = result.data.getPersonByID;
           this.loading = result.loading;
-          // this.error = false;
+          this.error = false;
         });
     });
   }
