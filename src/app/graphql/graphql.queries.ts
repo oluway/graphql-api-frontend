@@ -27,6 +27,24 @@ export const GET_QUERY_BY_NAME = gql`
     }
   }
 `;
+// peopleListPaged(page: 2){
+//   results{
+//     name
+//     homeworld
+//     height
+//   }
+// }
+export const GET_QUERY_BY_PAGE = gql`
+  query peopleListPaged($page: Integer!) {
+    peopleListPaged(page: $page) {
+      results {
+        name
+        homeworld
+        height
+      }
+    }
+  }
+`;
 
 export const GET_PEOPLE_BY_ID = gql`
   query getPersonByID($id: ID!) {

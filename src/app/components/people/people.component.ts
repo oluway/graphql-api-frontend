@@ -1,7 +1,11 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder } from "@angular/forms";
 import { Apollo, gql } from "apollo-angular";
-import { GET_QUERY_BY_NAME, ALL_PEOPLE } from "app/graphql/graphql.queries";
+import {
+  GET_QUERY_BY_NAME,
+  ALL_PEOPLE,
+  GET_QUERY_BY_PAGE,
+} from "app/graphql/graphql.queries";
 import { Person } from "../../model/person";
 
 @Component({
@@ -13,7 +17,7 @@ export class PeopleComponent implements OnInit {
   // people: any[] = [];
   loading = true;
   error: any;
-
+  page = 1;
   people!: Person;
 
   filterByName = this._fb.group({
@@ -50,5 +54,24 @@ export class PeopleComponent implements OnInit {
         this.error = false;
       });
   }
-  re;
+
+  next(value) {
+    return value++;
+  }
+
+  nextPage() {
+    this.apollo
+      .watchQuery({
+        query: GET_QUERY_BY_PAGE,
+        variables: {
+          name: this.next(this.page),
+        },
+      })
+      .valueChanges.subscribe((result: any) => {
+        console.log("WHATS GOING ON ", result);
+        // this.people = result?.data?.getPersonByName?.results;
+        this.loading = result?.loading;
+        this.error = false;
+      });
+  }
 }
