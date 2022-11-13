@@ -12,6 +12,7 @@ import { FooterComponent } from "./shared/footer/footer.component";
 import { ComponentsModule } from "./components/components.module";
 import { GraphQLModule } from "./graphql.module";
 import { HttpClientModule } from "@angular/common/http";
+import { NgxPaginationModule } from "ngx-pagination";
 
 @NgModule({
   declarations: [AppComponent, NavbarComponent, FooterComponent],
@@ -24,6 +25,7 @@ import { HttpClientModule } from "@angular/common/http";
     AppRoutingModule,
     GraphQLModule,
     HttpClientModule,
+    NgxPaginationModule,
   ],
   exports: [FooterComponent],
   providers: [],

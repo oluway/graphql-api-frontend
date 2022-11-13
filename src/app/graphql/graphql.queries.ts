@@ -35,12 +35,17 @@ export const GET_QUERY_BY_NAME = gql`
 //   }
 // }
 export const GET_QUERY_BY_PAGE = gql`
-  query peopleListPaged($page: Integer!) {
+  query peopleListPaged($page: Int!) {
     peopleListPaged(page: $page) {
+      next
+      previous
+      count
       results {
         name
-        homeworld
         height
+        mass
+        gender
+        homeworld
       }
     }
   }

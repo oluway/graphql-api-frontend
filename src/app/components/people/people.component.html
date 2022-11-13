@@ -64,7 +64,7 @@
         <div class="row" style="margin: 0">
           <div class="col-md-12 bg-dark text-right" style="padding: 12px">
             <button
-              (click)="reloadPage(getPeople())"
+              (click)="getPeople(1)"
               type="button"
               class="btn btn-warning font-500"
             >
@@ -86,11 +86,14 @@
           <tbody>
             <tr
               *ngFor="let person of people; let i = index"
-              [routerLink]="['/people/detail', i + 1]"
+              [routerLink]="[
+                '/people/detail',
+                (currentPage - 1) * PAGESIZE + i + 1
+              ]"
               routerLinkActive="router-link-active"
               style="cursor: pointer !important"
             >
-              <th scope="row">{{ 1 + i }}</th>
+              <th scope="row">{{ (currentPage - 1) * PAGESIZE + i + 1 }}</th>
               <td>{{ person.name }}</td>
               <td>{{ person.height }}</td>
               <td>{{ person.mass }}</td>
@@ -106,6 +109,7 @@
               (click)="previousPage()"
               type="button"
               class="btn btn-default font-500 mx-4"
+              [disabled]="!isPrevable"
             >
               Previous
             </button>
@@ -113,6 +117,7 @@
               (click)="nextPage()"
               type="button"
               class="btn btn-primary font-500"
+              [disabled]="!isNextable"
             >
               Next
             </button>
