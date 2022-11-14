@@ -1,9 +1,11 @@
-First Step
+DO NOT FORGET TO RUN THE SPRINGBOOT APPLICATION BEFORE RUNNING THIS PROJECT
+GITHUB: https://github.com/oluway/graphql-api-backend
+
+Step 1
 download file
 
-Second Step
-run 
+Step 2
 mpm install
 
-run
+Step 3
 ng serve
